@@ -6,7 +6,8 @@ public class Device {
     DeviceHandler dh = new DeviceHandler();
 
     public int serial;
-    Position position;
+    public String nickname;
+    Position position = null;
 
     public enum type {
         MOBILE, TELLSTICK;
@@ -24,6 +25,10 @@ public class Device {
 
     public int getSerial(){
         return serial;
+    }
+
+    public void setNickname(String nickname){
+        this.nickname = nickname;
     }
 
     public Position setPosition(){

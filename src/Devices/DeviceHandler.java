@@ -11,7 +11,16 @@ public class DeviceHandler {
     }
 
     public void addDevice(){
+        boolean nicknamed = false;
+        String nickname = "test-nickname";
+
         Device newDevice = new Device();
+
+
+        // if-sats om man vill ange ett smeknamn på devicen
+            if(nicknamed){
+                newDevice.setNickname(nickname);
+            }
 
         devices.add(newDevice);
     }
