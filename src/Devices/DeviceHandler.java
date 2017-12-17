@@ -1,49 +1,65 @@
-package Devices;
+    package Devices;
 
-import java.util.ArrayList;
+    import Positions.Mapper;
+    import Positions.Room;
 
-public class DeviceHandler {
+    import java.util.ArrayList;
 
-    ArrayList<Device> devices = new ArrayList<Device>();
+    public class DeviceHandler {
 
-    public int deviceAmount(){
-        return devices.size();
-    }
+        Mapper mapper = new Mapper();
 
-    public void addDevice(){
-        boolean nicknamed = false;
-        String nickname = "test-nickname";
+        ArrayList<Device> devices = new ArrayList<Device>();
 
-        Device newDevice = new Device();
+        public int deviceAmount(){
+            return devices.size();
+        }
+
+        public void addDevice(String nickname, String roomName){
+            Device newDevice = new Device();
+
+            newDevice.setNickname(nickname);
 
 
-        // if-sats om man vill ange ett smeknamn på devicen
-            if(nicknamed){
-                newDevice.setNickname(nickname);
+            devices.add(newDevice);
+
+            Room room = mapper.getRoom(roomName);
+
+            System.out.println("PRINTING ROOM : " + room);
+            room.linkDevice(newDevice);
+
+
+        }
+
+        public Device getDevice(int serial){
+           Device device = null;
+            for(Device d : devices){
+                if(d.getSerial() == serial){
+                    System.out.println("Hit hit hit!");
+                    device = d; // Hur bryter man sig ur for-loopen samt if-satsen snyggast när man identifierat?
+                    }
             }
+            return device;
+        }
 
-        devices.add(newDevice);
-    }
-
-    public Device getDevice(int serial){
-       Device device = null;
-        for(Device d : devices){
-            if(d.getSerial() == serial){
-                System.out.println("Hit hit hit!");
-                device = d; // Hur bryter man sig ur for-loopen samt if-satsen snyggast när man identifierat?
+        public void removeDevice(int serial){
+            for(Device d : devices){
+                if(d.getSerial() == serial){
+                    devices.remove(d);
                 }
-        }
-        return device;
-    }
-
-    public void removeDevice(int serial){
-        for(Device d : devices){
-            if(d.serial == serial){
-                devices.remove(d);
             }
         }
+
+        public void printDevices(){
+
+            System.out.println("Printing all devices: ");
+            for(Device device : devices){
+                System.out.println(device);
+            }
+        }
+
+
+
+
+
     }
-
-
-
-}

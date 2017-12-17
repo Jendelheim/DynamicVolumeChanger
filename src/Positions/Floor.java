@@ -7,14 +7,12 @@ import java.util.ArrayList;
 
 public class Floor {
 
-    int id;
     int level;
 
     // Varje våning har x antal rum kopplade till respektive våning.
-    ArrayList<Room> FloorRooms = new ArrayList<>();
+    ArrayList<Room> floorRooms = new ArrayList<>();
 
     public Floor(int level){
-        this.id = setId();
         this.level = level;
     }
 
@@ -27,12 +25,18 @@ public class Floor {
         return ++value;
     }
 
-
-    public String toString(){
-        return "Floor: " + level + " with ID : " + id;
+    public int getLevel(){
+        return level;
     }
 
 
+    public String toString(){
+        return "Floor: " + level;
+    }
+
+    public ArrayList<Room> getFloorRooms(){
+        return floorRooms;
+    }
 
 
 
