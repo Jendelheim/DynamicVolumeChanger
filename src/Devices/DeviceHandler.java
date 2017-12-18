@@ -7,9 +7,17 @@
 
     public class DeviceHandler {
 
-        Mapper mapper = new Mapper();
+        Mapper mapper; //  = new Mapper();
 
         ArrayList<Device> devices = new ArrayList<Device>();
+
+        public DeviceHandler(Mapper mapper){
+            this.mapper = mapper;
+        }
+
+        public DeviceHandler(){
+
+        }
 
         public int deviceAmount(){
             return devices.size();
@@ -20,8 +28,15 @@
 
             newDevice.setNickname(nickname);
 
+            System.out.println("PRINTING DEVICE:::: " + newDevice);
 
             devices.add(newDevice);
+
+
+
+            System.out.println("PRINTING DEVICES-SIZE:::: " + devices.size());
+
+
 
             Room room = mapper.getRoom(roomName);
 

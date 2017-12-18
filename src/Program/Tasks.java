@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class Tasks {
 
     Mapper mapper = new Mapper();
-    DeviceHandler dh = new DeviceHandler();
+    DeviceHandler dh = new DeviceHandler(mapper);
 
     public void runTests(){
         System.out.println("Starting tests..");
@@ -137,6 +137,5 @@ public class Tasks {
         mapper.setupRoom(room.getLinkedDevices());
 
 
-     //   mapper.setupRoom();
     }
 }

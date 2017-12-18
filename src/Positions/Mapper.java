@@ -84,18 +84,24 @@ public class Mapper {
 
     public void setupRoom(ArrayList<Device> devices){ // A, B, C, D
 
-        ArrayList<Integer[]> tempArrays = new ArrayList<>(); // aArray, bArray, cArray, dArray
-
-        for(int i = 0; i < devices.size(); i++){
-            tempArrays.add(new Integer[4]);
-        }
+        ArrayList<Integer[]> tempArrays = returnTempArrays(devices);
 
         System.out.println(tempArrays.size());
+
+        System.out.println("Skriver ut värdena från tempArrays");
+        System.out.println(tempArrays);
 
 
 
     }
 
+    public ArrayList<Integer[]> returnTempArrays(ArrayList<Device> devices){
+        ArrayList<Integer[]> tempArrays = new ArrayList<>();
+        for(int i = 0; i < devices.size(); i++){
+            tempArrays.add(new Integer[4]);
+        }
+        return tempArrays;
+    }
 
 
 
