@@ -4,6 +4,7 @@
     import Positions.Room;
 
     import java.util.ArrayList;
+    import java.util.Arrays;
 
     public class DeviceHandler {
 
@@ -73,6 +74,31 @@
             }
         }
 
+        public Integer[] getSignalStrengthArray(int indexes){
+            Device dev = new Device();
+            Integer[] array = new Integer[10];
+
+            for(int i = 0; i < indexes; i++){
+                // System.out.println(dev.getSignalStrength());
+                array[i] = dev.getSignalStrength();
+            }
+
+            return array;
+        }
+
+        public int pingSpeaker(Device otherSpeaker){
+
+            Integer[] distanceArray = getSignalStrengthArray(10);
+
+            int sum = 0;
+            for (int d : distanceArray) sum += d;
+
+            int average = sum / distanceArray.length;
+
+            System.out.println("Printing distanceArray: " + Arrays.toString(distanceArray));
+            System.out.println("Printing average distance value: " + average);
+            return average;
+        }
 
 
 

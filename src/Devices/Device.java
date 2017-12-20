@@ -3,6 +3,7 @@ package Devices;
 import Positions.Position;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Device {
     DeviceHandler dh = new DeviceHandler();
@@ -60,7 +61,9 @@ public class Device {
         return "Device (" + serial + ") nickname: " + nickname + " (Position: " + position + ")";
     }
 
-    public double getSignalStrength(){
-        return 1.234;
+    public int getSignalStrength(){ // Är random tills vi fixat RSSI, motsvarar nu procent
+        Random ran = new Random();
+        int x = ran.nextInt(100) + 0;
+        return x;
     }
 }

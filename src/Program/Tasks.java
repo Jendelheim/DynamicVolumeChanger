@@ -7,6 +7,7 @@ import Positions.Mapper;
 import Positions.Room;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Tasks {
 
@@ -27,6 +28,8 @@ public class Tasks {
         addDevices();
 
         receiveRSSI();
+
+        testSignalRandomValue();
 
         saveRSSI();
 
@@ -112,11 +115,20 @@ public class Tasks {
          System.out.println("test signalstrength: " + rssi);
     }
 
+    public void testSignalRandomValue(){
+         Integer[] array = dh.getSignalStrengthArray(10);
+
+        // System.out.println("420 420 420 420 420");
+        // System.out.println(Arrays.toString(array));
+    }
+
     public void saveRSSI(){
 
     }
 
     public void getAverageRSSI(){
+        dh.pingSpeaker(dh.getDevice(1));
+
 
     }
 
