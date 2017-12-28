@@ -11,6 +11,8 @@ public class Mapper extends DeviceHandler{
     ArrayList<Floor> floors = new ArrayList<>();
     ArrayList<Room> rooms = new ArrayList<>();
 
+    Room connector = null;
+
     public void addFloor(Floor fl){
         floors.add(fl);
     }
@@ -43,11 +45,11 @@ public class Mapper extends DeviceHandler{
 
 
     public void addRoom(Room room){
-        System.out.println("adding....");
+    //    System.out.println("adding....");
 
         rooms.add(room);
 
-        System.out.println(room);
+     //   System.out.println(room);
     }
 
     public void connectRoomToFloor(Room room){
@@ -66,19 +68,18 @@ public class Mapper extends DeviceHandler{
         }
     }
 
-    public Room getRoom(String str){
-        Room roomToReturn = null;
-
+    public void getRoom(String str){
         System.out.println("HELLELELEEEL");
         System.out.println(rooms);
         for(Room room : rooms){
             if (room.getRoomName().equals("Kitchen")) {
                 System.out.println("Hiterino!!!!");
-                return room;
+                System.err.println(room);
+                connector = room;
             }
         }
         System.out.println("No Hiterino!!!");
-        return roomToReturn;
+        //return roomToReturn;
     }
     public void removeRoom(){
 
@@ -128,4 +129,7 @@ public class Mapper extends DeviceHandler{
 
     }
 
+    public void pingSpeakers(){
+
+    }
 }

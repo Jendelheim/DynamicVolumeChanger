@@ -20,31 +20,35 @@
 
         }
 
+        public ArrayList<Device> getDevices(){
+            return devices;
+        }
+
         public int deviceAmount(){
             return devices.size();
         }
 
-        public void addDevice(String nickname, String roomName){
-            Device newDevice = new Device();
-
-            newDevice.setNickname(nickname);
-
-            System.out.println("PRINTING DEVICE:::: " + newDevice);
+        public void addDevice(Device newDevice, String roomName){
 
             devices.add(newDevice);
-
-
-
             System.out.println("PRINTING DEVICES-SIZE:::: " + devices.size());
 
+            System.err.print(roomName);
+            //System.err.print(mapper.getRoom(roomName));
+
+           //mapper.getRoom(roomName);
+
+          //  System.out.println("PRINTING ROOM : " + room);
+          //  room.linkDevice(newDevice);
 
 
-            Room room = mapper.getRoom(roomName);
+        }
 
-            System.out.println("PRINTING ROOM : " + room);
-            room.linkDevice(newDevice);
-
-
+        public void addDemoDevices(){
+            devices.add(new Device("northEast"));
+            devices.add(new Device("northWest"));
+            devices.add(new Device("southEast"));
+            devices.add(new Device("southWest"));
         }
 
         public Device getDevice(int serial){
@@ -74,13 +78,13 @@
             }
         }
 
-        public Integer[] getSignalStrengthArray(int indexes){
-            Device dev = new Device();
+       public Integer[] getSignalStrengthArray(Device device, int indexes){
+
             Integer[] array = new Integer[10];
 
             for(int i = 0; i < indexes; i++){
                 // System.out.println(dev.getSignalStrength());
-                array[i] = dev.getSignalStrength();
+                array[i] = device.getSignalStrength();
             }
 
             return array;
@@ -88,7 +92,7 @@
 
         public int pingSpeaker(Device otherSpeaker){
 
-            Integer[] distanceArray = getSignalStrengthArray(10);
+            Integer[] distanceArray = getSignalStrengthArray(otherSpeaker, 10);
 
             int sum = 0;
             for (int d : distanceArray) sum += d;

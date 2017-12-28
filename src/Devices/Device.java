@@ -27,8 +27,9 @@ public class Device {
     }
 
 
-    public Device(){
+    public Device(String name){
         this.serial = setSerial();
+        this.nickname = name;
     }
 
     public int setSerial(){
