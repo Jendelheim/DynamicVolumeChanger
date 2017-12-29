@@ -81,6 +81,10 @@ public class Tasks{
 //        mapper.printFloors();
     }
 
+    public ArrayList<Device> getDevicesFromDh(){
+        return dh.getDevices();
+    }
+
     public void addRoom(String name, int level){
 
         Room room = new Room(name, level);

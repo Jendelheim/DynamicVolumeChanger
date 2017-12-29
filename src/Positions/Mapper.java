@@ -87,6 +87,9 @@ public class Mapper extends DeviceHandler{
 
     public void setupRoom(ArrayList<Device> devices){ // A, B, C, D
 
+        // checking devies size
+        System.err.println(devices.size());
+
         // creating the tempArrays
         ArrayList<Integer[]> tempArrays = returnTempArrays(devices);
 

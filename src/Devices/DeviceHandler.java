@@ -99,8 +99,8 @@
 
             int average = sum / distanceArray.length;
 
-            System.out.println("Printing distanceArray: " + Arrays.toString(distanceArray));
-            System.out.println("Printing average distance value: " + average);
+          //  System.out.println("Printing distanceArray: " + Arrays.toString(distanceArray));
+           // System.out.println("Printing average distance value: " + average);
             return average;
         }
 

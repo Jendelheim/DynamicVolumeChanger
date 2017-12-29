@@ -3,6 +3,7 @@ package Program;
 import Devices.Device;
 import Devices.DeviceHandler;
 
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.Scanner;
 import java.util.concurrent.Executors;
@@ -105,6 +106,20 @@ public class App {
         System.exit(0);
     }
 
+    public int[] sendAutoProgress(){
+        int[] array = new int[4];
+           int count = 0;
+
+           System.out.println(tsks.getDevicesFromDh().size());
+            for(Device dev : tsks.getDevicesFromDh()){
+                array[count] = dh.pingSpeaker(dev);
+                count++;
+            }
+
+            System.out.println(Arrays.toString(array));
+
+        return array;
+    }
 
     public void startTimer(){
 
@@ -113,7 +128,8 @@ public class App {
             public void run() {
                 if(autopilot){
                     System.err.println("OH HERREGUD");
-                    dh.pingSpeaker(device);
+                    sendAutoProgress();
+                //    dh.pingSpeaker(device);
                 }
             }
         };
