@@ -27,7 +27,7 @@ public class Tasks{
         printRoomsLinkedToFloor(1);
         System.err.println("printRoomsLinkedToFloor() completed! ");
 
-        printRooms();
+        listRooms();
         System.err.println("printRooms() completed! ");
 
 /*
@@ -81,6 +81,10 @@ public class Tasks{
 //        mapper.printFloors();
     }
 
+    public void listFloors(){
+        System.out.println(mapper.getFloors());
+    }
+
     public ArrayList<Device> getDevicesFromDh(){
         return dh.getDevices();
     }
@@ -88,27 +92,18 @@ public class Tasks{
     public void addRoom(String name, int level){
 
         Room room = new Room(name, level);
-        mapper.addRoom(room);
-
-        System.err.println("Added: " + room);
-
-        /*   System.out.println("ADDING ROOMS : ");
-        Room r1 = new Room("Kitchen", 1);
-        mapper.addRoom(r1);
-        mapper.connectRoomToFloor(r1);
-
-        Room r2 = new Room("Livingroom", 1);
-        mapper.addRoom(r2);
-        mapper.connectRoomToFloor(r2);
-
-        Room r3 = new Room("chillzone", 1);
-        mapper.addRoom(r3);
-        mapper.connectRoomToFloor(r3);
 
 
-        // printing to check the room is added to the list of rooms.
-        System.out.println("Printing all rooms: ");
-        mapper.printRooms();*/
+        System.out.println("Init connect.");
+        boolean toAddRoom = mapper.connectRoomToFloor(room);
+
+        if(toAddRoom){
+            mapper.addRoom(room);
+
+            System.err.println("Added: " + room);
+        } else {
+            System.err.println("Cannot add since there are no floor called level: " + level);
+        }
     }
 
     public void printRoomsLinkedToFloor(int level){
@@ -122,14 +117,17 @@ public class Tasks{
         }
     }
 
-    public void printRooms(){
-        System.out.println("PRINTROOMS(); ");
+    public void listRooms(){
+        //System.out.println("PRINTROOMS(); ");
         System.out.println(mapper.getRooms());
-        System.out.println(mapper.getRooms().size());
+        //System.out.println(mapper.getRooms().size());
     }
 
     public void addDevice(String name, String connecting){
-        Device device = new Device(name);
+
+        Room room = mapper.getRoom(connecting);
+
+        Device device = new Device(name, room);
 
         mapper.addDevice(device, connecting);
 
@@ -182,7 +180,7 @@ public class Tasks{
         System.out.println("initializing setup .. ");
 
         System.out.println("creating demo devices");
-        dh.addDemoDevices();
+       // dh.addDemoDevices();
 
         System.out.println("Getting room  .. ");
      //   Room room = mapper.getRoom("Kitchen");

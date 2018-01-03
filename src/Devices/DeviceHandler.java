@@ -34,22 +34,14 @@
             System.out.println("PRINTING DEVICES-SIZE:::: " + devices.size());
 
             System.err.print(roomName);
-            //System.err.print(mapper.getRoom(roomName));
-
-           //mapper.getRoom(roomName);
-
-          //  System.out.println("PRINTING ROOM : " + room);
-          //  room.linkDevice(newDevice);
-
-
         }
 
-        public void addDemoDevices(){
+/*        public void addDemoDevices(){
             devices.add(new Device("northEast"));
             devices.add(new Device("northWest"));
             devices.add(new Device("southEast"));
             devices.add(new Device("southWest"));
-        }
+        }*/
 
         public Device getDevice(int serial){
            Device device = null;

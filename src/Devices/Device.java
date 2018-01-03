@@ -1,6 +1,7 @@
 package Devices;
 
 import Positions.Position;
+import Positions.Room;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -11,25 +12,16 @@ public class Device {
     private int serial;
     private String nickname = "deviceExample";
     private Position position = null;
+    private Room room;
 
     // Stores the distances between each device, in this case, device = A stores distance: AB, AC, AD so forth.
     // Probably needs to be adjusted to become a HashMap instead of ArrayList. (where K = ID, V = Distance)
     ArrayList<Double> deviceDistances = new ArrayList<>();
 
-    // For each update of Mobile-device position the differator updates if the signal has increased/decreased/unchanged
-    public enum differator {
-        DECREASE, NEUTRAL, INCREASE;
-    }
-
-    // Checks what kind of device it is
-    public enum type {
-        MOBILE, TELLSTICK;
-    }
-
-
-    public Device(String name){
+    public Device(String name, Room room){
         this.serial = setSerial();
         this.nickname = name;
+        this.room = room;
     }
 
     public int setSerial(){
@@ -52,6 +44,10 @@ public class Device {
     public Position setPosition(){
         Position pos = null;
         return pos;
+    }
+
+    public Room getRoom(){
+        return room;
     }
 
     public Position getPosition() {

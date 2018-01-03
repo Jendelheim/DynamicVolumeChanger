@@ -11,7 +11,6 @@ public class Mapper extends DeviceHandler{
     ArrayList<Floor> floors = new ArrayList<>();
     ArrayList<Room> rooms = new ArrayList<>();
 
-    Room connector = null;
 
     public void addFloor(Floor fl){
         floors.add(fl);
@@ -52,9 +51,22 @@ public class Mapper extends DeviceHandler{
      //   System.out.println(room);
     }
 
-    public void connectRoomToFloor(Room room){
-        Floor fl = getFloor(room.getLevel());
-        fl.floorRooms.add(room);
+    public boolean connectRoomToFloor(Room room){
+
+        boolean exist = false;
+
+        for(Floor floor: getFloors()){
+            if(floor.getLevel() == room.getLevel()){
+                exist = true;
+            }
+        }
+
+        if(exist){
+            Floor fl = getFloor(room.getLevel());
+            fl.floorRooms.add(room);
+        }
+
+        return exist;
     }
 
 
@@ -62,24 +74,24 @@ public class Mapper extends DeviceHandler{
         return rooms;
     }
 
-    public void printRooms(){
-        for(Room ro : getRooms()){
-            System.out.println(ro);
-        }
-    }
 
-    public void getRoom(String str){
-        System.out.println("HELLELELEEEL");
+    public Room getRoom(String str){
+
+        Room connector = null;
         System.out.println(rooms);
         for(Room room : rooms){
             if (room.getRoomName().equals("Kitchen")) {
                 System.out.println("Hiterino!!!!");
                 System.err.println(room);
                 connector = room;
+                return connector;
             }
         }
+
         System.out.println("No Hiterino!!!");
-        //return roomToReturn;
+
+
+        return connector; //return roomToReturn;
     }
     public void removeRoom(){
 

@@ -2,6 +2,7 @@ package Program;
 
 import Devices.Device;
 import Devices.DeviceHandler;
+import Positions.Room;
 
 import java.util.Arrays;
 import java.util.Locale;
@@ -40,8 +41,14 @@ public class App {
 
             if (inputCommand.equals("add floor")) {
                 addFloorButton();
+            } else if (inputCommand.equals("list floors")){
+                listFloors();
             } else if (inputCommand.equals("add room")) {
                 addRoomButton();
+            } else if (inputCommand.equals("list rooms")){
+                listRooms();
+            } else if (inputCommand.equals("list connected rooms")){
+                listConnectedRooms();
             } else if (inputCommand.equals("add device")) {
                 addDeviceButton();
             } else if (inputCommand.equals("exit")) {
@@ -68,6 +75,10 @@ public class App {
         tsks.addFloor(sc.nextInt());
     }
 
+    public void listFloors(){
+        tsks.listFloors();
+    }
+
     public void addRoomButton(){
         System.out.print("Enter name: ");
         String name = sc.nextLine();
@@ -85,6 +96,15 @@ public class App {
         String connecting = sc.nextLine();
 
         tsks.addDevice(name, connecting);
+    }
+
+    public void listRooms(){
+        tsks.listRooms();
+    }
+
+    public void listConnectedRooms(){
+        System.out.print("Enter level to show connected rooms: ");
+        tsks.printRoomsLinkedToFloor(sc.nextInt());
     }
 
     public void toggleAutopilot(boolean isOn){
@@ -123,7 +143,7 @@ public class App {
 
     public void startTimer(){
 
-        Device device = new Device("Demo");
+       // Device device = new Device("Demo", new Room("Livingroom", 3));
         Runnable helloRunnable = new Runnable() {
             public void run() {
                 if(autopilot){
