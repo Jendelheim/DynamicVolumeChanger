@@ -49,13 +49,15 @@ public class Device {
     public Room getRoom(){
         return room;
     }
+/*
 
     public Position getPosition() {
         return position;
     }
+*/
 
     public String toString(){
-        return "Device (" + serial + ") nickname: " + nickname + " (Position: " + position + ")";
+        return "Device (" + serial + ") nickname: " + nickname + " (connected to room: " + room.getRoomName() + ")";
     }
 
     public int getSignalStrength(){ // Är random tills vi fixat RSSI, motsvarar nu procent

@@ -31,17 +31,11 @@
         public void addDevice(Device newDevice, String roomName){
 
             devices.add(newDevice);
-            System.out.println("PRINTING DEVICES-SIZE:::: " + devices.size());
+            System.out.println("Device: " + newDevice.getNickname() + " added!");
+            //System.out.println("PRINTING DEVICES-SIZE:::: " + devices.size());
 
-            System.err.print(roomName);
+            //System.err.print(roomName);
         }
-
-/*        public void addDemoDevices(){
-            devices.add(new Device("northEast"));
-            devices.add(new Device("northWest"));
-            devices.add(new Device("southEast"));
-            devices.add(new Device("southWest"));
-        }*/
 
         public Device getDevice(int serial){
            Device device = null;
@@ -54,17 +48,32 @@
             return device;
         }
 
+        public ArrayList<Device> returnConnectedDevicesForSpecificRoom(String roomName){
+            ArrayList<Device> returnDevices = new ArrayList<>();
+
+            for(Device dev : devices){
+
+                if(dev.getRoom().getRoomName().equals(roomName)){
+
+                    returnDevices.add(dev);
+                }
+            }
+
+            return returnDevices;
+        }
+
+/*
         public void removeDevice(int serial){
             for(Device d : devices){
                 if(d.getSerial() == serial){
                     devices.remove(d);
                 }
             }
-        }
+        }*/
 
         public void printDevices(){
 
-            System.out.println("Printing all devices: ");
+            System.out.println("Printing all devices: " + devices.size());
             for(Device device : devices){
                 System.out.println(device);
             }

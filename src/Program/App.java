@@ -2,6 +2,7 @@ package Program;
 
 import Devices.Device;
 import Devices.DeviceHandler;
+import Positions.Mapper;
 import Positions.Room;
 
 import java.util.Arrays;
@@ -12,7 +13,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 
-public class App {
+public class App extends Mapper {
 
 
     Boolean autopilot = false;
@@ -26,8 +27,6 @@ public class App {
         System.out.println("Starting application..");
 
         command();
-
-       // tsks.runTests();
     }
 
 
@@ -59,6 +58,8 @@ public class App {
                 toggleAutopilot(autopilot);
             } else if (inputCommand.equals("setup room")){
                 setupRoom();
+            } else if (inputCommand.equals("add demo data")){
+                tsks.runTests();
             }
             else {
                 System.out.println("Option does not exist.");
@@ -126,12 +127,15 @@ public class App {
         System.exit(0);
     }
 
-    public int[] sendAutoProgress(){
+    public int[] sendAutoProgress(String roomName){
         int[] array = new int[4];
            int count = 0;
 
-           System.out.println(tsks.getDevicesFromDh().size());
-            for(Device dev : tsks.getDevicesFromDh()){
+
+
+           System.out.println("HEllo world!");
+           System.out.println(tsks.getConnectedDevicesForSpecificRoom(roomName).size());
+            for(Device dev : tsks.getConnectedDevicesForSpecificRoom(roomName)){
                 array[count] = dh.pingSpeaker(dev);
                 count++;
             }
@@ -143,13 +147,11 @@ public class App {
 
     public void startTimer(){
 
-       // Device device = new Device("Demo", new Room("Livingroom", 3));
         Runnable helloRunnable = new Runnable() {
             public void run() {
                 if(autopilot){
-                    System.err.println("OH HERREGUD");
-                    sendAutoProgress();
-                //    dh.pingSpeaker(device);
+                    System.out.println("OH HERREGUD");
+                    sendAutoProgress("Livingroom");
                 }
             }
         };

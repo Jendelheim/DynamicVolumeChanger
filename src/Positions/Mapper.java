@@ -80,15 +80,15 @@ public class Mapper extends DeviceHandler{
         Room connector = null;
         System.out.println(rooms);
         for(Room room : rooms){
-            if (room.getRoomName().equals("Kitchen")) {
-                System.out.println("Hiterino!!!!");
-                System.err.println(room);
+            if (room.getRoomName().equals(str)) {
+               // System.out.println("Hiterino!!!!");
+                System.out.println(room);
                 connector = room;
                 return connector;
             }
         }
 
-        System.out.println("No Hiterino!!!");
+        System.out.println("There are no room with that name.");
 
 
         return connector; //return roomToReturn;
@@ -97,7 +97,10 @@ public class Mapper extends DeviceHandler{
 
     }
 
-    public void setupRoom(ArrayList<Device> devices){ // A, B, C, D
+    public void setupRoom(String roomName){ // A, B, C, D
+
+        // Getting device-array
+        ArrayList<Device> devices = returnConnectedDevicesForSpecificRoom(roomName);
 
         // checking devies size
         System.err.println(devices.size());
@@ -131,6 +134,8 @@ public class Mapper extends DeviceHandler{
         return tempArrays;
     }
 
+
+    // För mätning av rum.
     public void pingDistances(Device pingingSpeaker, ArrayList<Device> devices){
         Integer[] values = new Integer[3];
 
@@ -143,6 +148,9 @@ public class Mapper extends DeviceHandler{
         }
 
     }
+
+
+
 
     public void pingSpeakers(){
 
