@@ -6,7 +6,7 @@ import Devices.DeviceHandler;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Mapper extends DeviceHandler{
+public class Mapper extends Device {
 
     ArrayList<Floor> floors = new ArrayList<>();
     ArrayList<Room> rooms = new ArrayList<>();

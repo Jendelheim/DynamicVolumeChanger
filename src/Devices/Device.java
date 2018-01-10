@@ -6,7 +6,7 @@ import Positions.Room;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Device {
+public class Device extends DeviceHandler {
     DeviceHandler dh = new DeviceHandler();
 
     private int serial;
@@ -17,6 +17,10 @@ public class Device {
     // Stores the distances between each device, in this case, device = A stores distance: AB, AC, AD so forth.
     // Probably needs to be adjusted to become a HashMap instead of ArrayList. (where K = ID, V = Distance)
     ArrayList<Double> deviceDistances = new ArrayList<>();
+
+    public Device (){
+
+    }
 
     public Device(String name, Room room){
         this.serial = setSerial();

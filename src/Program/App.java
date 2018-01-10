@@ -4,6 +4,9 @@ import Devices.Device;
 import Devices.DeviceHandler;
 import Positions.Mapper;
 import Positions.Room;
+import SignalReceiver.Definer;
+import SignalReceiver.Plausibility;
+
 
 import java.util.Arrays;
 import java.util.Locale;
@@ -15,21 +18,23 @@ import java.util.concurrent.TimeUnit;
 
 public class App extends Mapper {
 
+    private Tasks tsks = new Tasks();
+    private DeviceHandler dh = new DeviceHandler();
+    private Definer def = new Definer();
+    private Plausibility plaus = new Plausibility();
 
-    Boolean autopilot = false;
-    DeviceHandler dh = new DeviceHandler();
 
     private static Scanner sc = new Scanner(System.in).useLocale(Locale.US);
-    Tasks tsks = new Tasks();
+
+    private Boolean autopilot = false;
     private ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+    private int [] prevArray = new int [4];
 
     public void initializing(){
         System.out.println("Starting application..");
 
         command();
     }
-
-
 
     public void command(){
         System.out.println("Command: ");
@@ -53,13 +58,13 @@ public class App extends Mapper {
             } else if (inputCommand.equals("exit")) {
                 exit();
             } else if (inputCommand.equals("toggle autopilot")){
-
-                System.err.print(autopilot);
                 toggleAutopilot(autopilot);
             } else if (inputCommand.equals("setup room")){
                 setupRoom();
             } else if (inputCommand.equals("add demo data")){
                 tsks.runTests();
+            } else if(inputCommand.equals("test definer")){
+                performDefiner();
             }
             else {
                 System.out.println("Option does not exist.");
@@ -87,7 +92,6 @@ public class App extends Mapper {
         int floor = sc.nextInt();
 
         tsks.addRoom(name, floor);
-
     }
 
     public void addDeviceButton(){
@@ -109,16 +113,13 @@ public class App extends Mapper {
     }
 
     public void toggleAutopilot(boolean isOn){
-
             if(isOn){
                 autopilot = false;
             }
             else if(!isOn){
                 autopilot = true;
-                startTimer();
+                startTimer("Livingroom");
             }
-
-            System.out.println("new result: " + autopilot);
     }
 
     public void exit() {
@@ -127,35 +128,97 @@ public class App extends Mapper {
         System.exit(0);
     }
 
-    public int[] sendAutoProgress(String roomName){
+    public void printVolumeAdjustments(int[] array){
+        System.out.println("Setting device A volume to: " + array[0] + "  The value has " + increaseDecrease(prevArray[0], array[0])+ " since last ping. (prev: " + prevArray[0] + ")");
+        def.setDefinitionEnum(array[0]);
+        System.out.println("Signal-strength for device A: " + def.toString());
+        plaus.calcPlausibility(prevArray[0], array[0]);
+        System.out.println(plaus.toString());
+
+        System.out.println(" ");
+
+        System.out.println("Setting device B volume to: " + array[1] + "  The value has " + increaseDecrease(prevArray[1], array[1])+ " since last ping. (prev: " + prevArray[1] + ")");
+        def.setDefinitionEnum(array[1]);
+        System.out.println("Signal-strength for device B: " + def.toString());
+        plaus.calcPlausibility(prevArray[1], array[1]);
+        System.out.println(plaus.toString());
+
+        System.out.println(" ");
+
+        System.out.println("Setting device C volume to: " + array[2] + "  The value has " + increaseDecrease(prevArray[2], array[2])+ " since last ping. (prev: " + prevArray[2] + ")");
+        def.setDefinitionEnum(array[2]);
+        System.out.println("Signal-strength for device C: " + def.toString());
+        plaus.calcPlausibility(prevArray[2], array[2]);
+        System.out.println(plaus.toString());
+
+        System.out.println(" ");
+
+        System.out.println("Setting device D volume to: " + array[3] + "  The value has " + increaseDecrease(prevArray[3], array[3])+ " since last ping. (prev: " + prevArray[3] + ")");
+        def.setDefinitionEnum(array[3]);
+        System.out.println("Signal-strength for device D: " + def.toString());
+        plaus.calcPlausibility(prevArray[3], array[3]);
+        System.out.println(plaus.toString());
+
+        System.out.println(" ");
+        System.out.println(" ");
+        System.out.println(" ");
+
+    }
+
+    public String increaseDecrease(int prev, int next){
+        String trend = null;
+        if(prev > next){
+            trend = "decreased";
+        } else if(next > prev){
+            trend = "increased";
+        }
+        return trend;
+    }
+
+    private void sendAutoProgress(String roomName){
+
         int[] array = new int[4];
            int count = 0;
-
-
-
-           System.out.println("HEllo world!");
-           System.out.println(tsks.getConnectedDevicesForSpecificRoom(roomName).size());
             for(Device dev : tsks.getConnectedDevicesForSpecificRoom(roomName)){
                 array[count] = dh.pingSpeaker(dev);
                 count++;
             }
 
-            System.out.println(Arrays.toString(array));
+            printVolumeAdjustments(array);
+            prevArray = array;
 
-        return array;
+
     }
 
-    public void startTimer(){
+    public void startTimer(String roomName){
 
         Runnable helloRunnable = new Runnable() {
             public void run() {
                 if(autopilot){
-                    System.out.println("OH HERREGUD");
-                    sendAutoProgress("Livingroom");
+                    sendAutoProgress(roomName);
                 }
             }
         };
         executor.scheduleAtFixedRate(helloRunnable, 0, 2, TimeUnit.SECONDS);
     }
+
+
+
+    // Testing definer
+
+    public int getTestRSSI(){
+        return 10;
+    }
+
+    public void performDefiner(){
+        def.setDefinitionEnum(getTestRSSI());
+
+        System.out.println(def.toString());
+
+      //  def.getSignalStrength();
+
+    }
+
+
 
 }

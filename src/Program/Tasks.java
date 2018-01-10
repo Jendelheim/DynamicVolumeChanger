@@ -265,7 +265,7 @@ public class Tasks{
     }
 
     public void getAverageRSSI(){
-        dh.pingSpeaker(dh.getDevice(1));
+        System.out.println(dh.pingSpeaker(dh.getDevice(1)));
 
 
     }
